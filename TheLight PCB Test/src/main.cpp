@@ -1,7 +1,7 @@
 #include <FastLED.h>
 
 // How many leds in your strip?
-#define NUM_LEDS 116
+#define NUM_LEDS 121
 
 // For led chips like WS2812, which have a data line, ground, and power, you just
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
@@ -75,7 +75,7 @@ int nBrightness=255;
 boolean bDEBUG=0;
 
 void setup() {    
-  //FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);  // GRB ordering is typical    
+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);  // GRB ordering is typical    
 
   //Stayalive Signal
   pinMode(LED,OUTPUT);
@@ -104,8 +104,21 @@ void setup() {
   pinMode(JoystickID[3],INPUT_PULLUP);
 
   //Turn the LED on, then pause
-  //leds[0] = CRGB::Red;
-  //FastLED.show();
+  leds[0] = CRGB::Red;
+  leds[1] = CRGB::Azure;
+  leds[2] = CRGB::Blue;
+  leds[3] = CRGB::Blue;
+  leds[4] = CRGB::Blue;
+  leds[5] = CRGB::Blue;
+  leds[6] = CRGB::Blue;
+  int i=0;
+
+  for(i=0;i<=NUM_LEDS-1;i++){
+    leds[i] = CRGB::Red;
+  }
+
+  //leds[3] = CRGB::BlueViolet;
+  FastLED.show();
   //delay(10);
 
   // Now turn the LED off, then pause
