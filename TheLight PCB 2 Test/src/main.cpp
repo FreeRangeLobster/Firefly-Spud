@@ -1,8 +1,7 @@
 #include <FastLED.h>
 
 // How many leds in your strip?
-//#define NUM_LEDS 121
-#define NUM_LEDS 232
+#define NUM_LEDS 121
 
 // For led chips like WS2812, which have a data line, ground, and power, you just
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
@@ -65,7 +64,8 @@ const int potPin = 34;
 // Define the array of leds
 CRGB leds[NUM_LEDS];
 int ButtonSwitchesID [5]={19,23,35,36,39};
-int ButtonLampsID [5]={4,5,16,17,18};
+//int ButtonLampsID [5]={4,5,16,17,18};
+int ButtonLampsID [5]={4,18,5,16,17};
 int JoystickID[4]={25,26,32,33};
 static uint8_t hue = 0;
 static uint8_t lastHue = 0;
@@ -114,9 +114,9 @@ void setup() {
   leds[6] = CRGB::Blue;
   int i=0;
 
-   for(i=0;i<=NUM_LEDS-1;i++){
-     leds[i] = CRGB::Red;
-   }
+  for(i=0;i<=NUM_LEDS-1;i++){
+    leds[i] = CRGB::Red;
+  }
 
   //leds[3] = CRGB::BlueViolet;
   FastLED.show();
@@ -181,35 +181,45 @@ int nState=eInitialise;
 
 void loop() { 
   int a;
-  delay(100);
+  //delay(400);
   
      
 
-  initialiseShow();
+  //initialiseShow();
        
   //Infinite loop
   do {  
-   
+
+    //toggle light
     if ((digitalRead(LED)==LOW)){
-      digitalWrite(LED, HIGH);
-      digitalWrite(ButtonLampsID[0], HIGH);
-      digitalWrite(ButtonLampsID[1], HIGH);
-      digitalWrite(ButtonLampsID[2], HIGH);
-      digitalWrite(ButtonLampsID[3], HIGH);
-      digitalWrite(ButtonLampsID[4], HIGH);
-      digitalWrite(JoystickLamp, HIGH);
-    }
-    else{   
-      digitalWrite(LED, LOW);
-      digitalWrite(ButtonLampsID[0], LOW);
-      digitalWrite(ButtonLampsID[1], LOW);
-      digitalWrite(ButtonLampsID[2], LOW);
-      digitalWrite(ButtonLampsID[3], LOW);
-      digitalWrite(ButtonLampsID[4], LOW);
-      digitalWrite(JoystickLamp, LOW);
-    }
-      
-    delay(500);
+        digitalWrite(LED, HIGH);
+       
+      }
+      else{   
+        digitalWrite(LED, LOW);
+      }
+
+   
+      // if ((digitalRead(LED)==LOW)){
+      //   digitalWrite(LED, HIGH);
+      //   digitalWrite(ButtonLampsID[0], HIGH);
+      //   digitalWrite(ButtonLampsID[1], HIGH);
+      //   digitalWrite(ButtonLampsID[2], HIGH);
+      //   digitalWrite(ButtonLampsID[3], HIGH);
+      //   digitalWrite(ButtonLampsID[4], HIGH);
+      //   digitalWrite(JoystickLamp, HIGH);
+      // }
+      // else{   
+      //   digitalWrite(LED, LOW);
+      //   digitalWrite(ButtonLampsID[0], LOW);
+      //   digitalWrite(ButtonLampsID[1], LOW);
+      //   digitalWrite(ButtonLampsID[2], LOW);
+      //   digitalWrite(ButtonLampsID[3], LOW);
+      //   digitalWrite(ButtonLampsID[4], LOW);
+      //   digitalWrite(JoystickLamp, LOW);
+      // }
+        
+      delay(500);
     //Serial.println(potValue);
 
     //Buttons
@@ -219,24 +229,27 @@ void loop() {
         Serial.print("Button ");
         Serial.println(i);
         nState=i+1;
+        digitalWrite(ButtonLampsID[i], HIGH);
+
       }
       else{
         //digitalWrite(ButtonLampsID[i], LOW);
+        digitalWrite(ButtonLampsID[i], LOW);
       }
     }
 
-    //Joystick
-    for(int i=0;i<4;i++){
-      if(digitalRead(JoystickID[i])==LOW) {
-        //digitalWrite(ButtonLampsID[i], HIGH);
-        Serial.print("Joy ");
-        Serial.println(i);
-        nState=i+1+5;
-      }
-      else{
-        //digitalWrite(ButtonLampsID[i], LOW);
-      }
-    }
+    // Joystick
+    // for(int i=0;i<4;i++){
+    //   if(digitalRead(JoystickID[i])==LOW) {
+    //     //digitalWrite(ButtonLampsID[i], HIGH);
+    //     Serial.print("Joy ");
+    //     Serial.println(i);
+    //     nState=i+1+5;
+    //   }
+    //   else{
+    //     //digitalWrite(ButtonLampsID[i], LOW);
+    //   }
+    // }
 
 
 
